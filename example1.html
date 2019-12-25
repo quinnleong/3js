@@ -10,7 +10,9 @@
 	</head>
 	<body>
 		<script src="js/three.min.js"></script>
-		<script>
+		<script type='module'>
+			import { TextureLoader } from './js/three.module.js';
+
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
@@ -36,12 +38,15 @@
 			scene.add( cube );
 
 			var geometry = new THREE.TorusKnotGeometry(20, 1, 200, 10, 2, 3);
-			var material = new THREE.MeshBasicMaterial( { color: 0x45ddef } );
+			// var material = new THREE.MeshBasicMaterial( { color: 0x45ddef } );
+			var textureLoader = new TextureLoader();
+			var porcelainWhite = textureLoader.load( './textures/matcap-porcelain-white.jpg' )
+			var material = new THREE.MeshMatcapMaterial( { matcap: porcelainWhite } );
 			var torusKnot = new THREE.Mesh( geometry, material );
 			scene.add( torusKnot );
 
 			var geometry = new THREE.TorusGeometry(30, 2, 10, 100);
-			var material = new THREE.MeshBasicMaterial( { color: 0xF5ddef } );
+			var material = new THREE.MeshBasicMaterial( { color: 0x45DDEF } );
 			var torus = new THREE.Mesh( geometry, material );
 			scene.add( torus );
 
